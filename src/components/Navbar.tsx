@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { DotsVertical, Logo, Search } from "./icons/Icons";
 import type { ChangeEvent, KeyboardEvent } from "react";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import router from "next/router";
-import { Menu } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { UserImage } from "./Components";
-
+import { Button } from "./buttons/Buttons";
 interface NavbarProps {
   children: JSX.Element;
 }
@@ -74,13 +74,65 @@ export default function Navbar({ children }: NavbarProps) {
               <div>
                 <Menu.Button className="focus:ring-primary-500 flex rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2">
                   {sessionData ? (
-                    <UserImage image={sessionData?.user.image || ""} />
+                    <UserImage image={sessionData?.user.image ?? ""} />
                   ) : (
                     <DotsVertical className="w-5 stroke-gray-700" />
                   )}
                 </Menu.Button>
               </div>
+              <Transition
+                as={Fragment}
+                enter="transition duration-100 ease-out"
+                enterFrom="transform scale-95 opacity-0"
+                enterTo="transform scale-100 opacity-100"
+                leave="transition duration-75 ease-out"
+                leaveFrom="transform scale-100 opacity-100"
+                leaveTo="transform scale-95 opacity-0"
+              >
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  {sessionData ? (
+                    <div className="mx-4 my-2 flex">
+                      <UserImage image={sessionData?.user.image ?? ""} />
+                      <div className="ml-2 flex w-full flex-col justify-start truncate ">
+                        <p className="truncate text-sm font-semibold text-gray-700">
+                          {sessionData && <span>{sessionData.user?.name}</span>}
+                        </p>
+                        <p className=" truncate text-sm text-gray-600">
+                          {sessionData && (
+                            <span className="">{sessionData.user?.email}</span>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="mx-4 my-2 flex text-center text-sm font-semibold text-gray-700 ">
+                      Menu
+                    </p>
+                  )}
+                </Menu.Items>
+              </Transition>
             </Menu>
+            {/*Sign up login buttons*/}
+            {sessionData ? (
+              ""
+            ) : (
+              <div className="flex flex-row space-x-3 ">
+                <Button
+                  variant="tertiary-gray"
+                  size="md"
+                  onClick={!sessionData ? () => void signIn() : () => ""}
+                >
+                  Log in
+                </Button>
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={!sessionData ? () => void signIn() : () => ""}
+                >
+                  Sign up
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
