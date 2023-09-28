@@ -70,10 +70,10 @@ export const authOptions: NextAuthOptions = {
      */
   ],
   theme: {
-    colorScheme: "auto",
-    brandColor: "",
-    logo: "",
-    buttonText: "",
+    colorScheme: "light",
+    brandColor: "#11999e",
+    logo: "/logo.svg",
+    buttonText: "#ffffff",
   },
 };
 
