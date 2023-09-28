@@ -141,7 +141,7 @@ export default function Navbar({ children }: NavbarProps) {
       <div className=" fixed z-50 w-full border border-gray-200 bg-white shadow-sm">
         <div className="mx-auto flex max-w-full px-6 lg:px-16 xl:grid xl:grid-cols-12">
           <div className="flex flex-shrink-0 items-center lg:static xl:col-span-2">
-            <Link href="/#" aria-label="Home">
+            <Link href="/" aria-label="Home">
               <Logo className="h-10" />
             </Link>
           </div>

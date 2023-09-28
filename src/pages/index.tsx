@@ -4,11 +4,10 @@ import Link from "next/link";
 
 import { api } from "@/utils/api";
 import Button from "@/components/buttons/Button";
-import { Navbar } from "@/components/Components";
+import { Navbar, Sidebar } from "@/components/Components";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
@@ -19,6 +18,13 @@ export default function Home() {
       <Navbar>
         <div></div>
       </Navbar>
+      <Sidebar
+        isOpen={false}
+        setSidebarOpen={() => {
+          console.log(123);
+        }}
+        closeSidebar={true}
+      />
       <h1>hello svete</h1>
     </>
   );

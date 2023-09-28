@@ -13,7 +13,8 @@ export function UserImage({
         src={image || "/profile.jpg"}
         alt="profile image"
         className="absolute rounded-full"
-        fill
+        width={128}
+        height={128}
       />
     </div>
   );
